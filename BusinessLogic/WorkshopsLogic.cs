@@ -6,19 +6,19 @@ using TrueWebAPI.Database;
 
 namespace TrueWebAPI.BusinessLogic
 {
-    public class WorkshopsLogic:IWorkshopsLogic
+    public class WorkshopsLogic : IWorkshopsLogic
     {
 
         private readonly IWorkshopsTable workshopsTable;
-        int idcount = 1;
 
         public WorkshopsLogic(IWorkshopsTable workshopsTable)
         {
             this.workshopsTable = workshopsTable;
         }
 
-        public List<Workshop> getAll(){
-                return workshopsTable.getAll();
+        public List<Workshop> getAll()
+        {
+            return workshopsTable.getAll();
         }
 
         public void addWorkshop(string name)
@@ -26,17 +26,33 @@ namespace TrueWebAPI.BusinessLogic
             if (name != null || name != "")
             {
                 Workshop workshop = new Workshop();
-                workshop.Id = idcount;
+                workshop.Id = generateId();
                 workshop.Name = name;
                 workshop.Status = "Scheduled";
                 workshopsTable.addWorkshop(workshop);
-                idcount++;
             }
+        }
+
+        private int generateId()
+        {
+            List<Workshop> workshopsList = workshopsTable.getAll();
+
+            
+            if(workshopsList.Count > 0)
+            {
+                Workshop last = workshopsTable.getAll().Last<Workshop>();
+                return last.Id + 1;
+            }
+            else
+            {
+                return 1; 
+            }
+            
         }
 
         public void putWorkshop(Workshop workshop)
         {
-            if(workshop.Id.Equals(null) || workshop.Name != null || workshop.Status != null || workshop.Status == "Scheduled" || workshop.Status == "Postponed" || workshop.Status == "Cancelled")
+            if (workshop.Id.Equals(null) || workshop.Name != null || workshop.Status != null || workshop.Status == "Scheduled" || workshop.Status == "Postponed" || workshop.Status == "Cancelled")
             {
                 workshopsTable.updateWorkshop(workshop);
             }
@@ -44,7 +60,7 @@ namespace TrueWebAPI.BusinessLogic
 
         public void deleteWorkshop(int id)
         {
-            if(id.Equals(null))
+            if (id.Equals(null))
             {
                 workshopsTable.deleteWorkshop(id);
             }

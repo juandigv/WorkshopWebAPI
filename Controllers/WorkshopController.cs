@@ -31,7 +31,7 @@ namespace TrueWebAPI.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] string workshop)
+        public void Post(string workshop)
         {
             workshopsLogic.addWorkshop(workshop);
         }
@@ -44,20 +44,20 @@ namespace TrueWebAPI.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public void Delete([FromBody] int id)
+        public void Delete(int id)
         {
             workshopsLogic.deleteWorkshop(id);
         }
 
         [HttpPut]
         [Route("{id}/postpone")]
-        public void Postpone([FromBody] int id)
+        public void Postpone(int id)
         {
             workshopsLogic.postponeWorkshop(id);
         }
         [HttpPut]
         [Route("{id}/cancel")]
-        public void Cancell([FromBody] int id)
+        public void Cancell(int id)
         {
             workshopsLogic.cancellWorkshop(id);
         }
