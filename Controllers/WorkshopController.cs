@@ -10,7 +10,7 @@ using TrueWebAPI.BusinessLogic;
 namespace TrueWebAPI.Controllers
 {
     [ApiController]
-    [Route("workshopList")]
+    [Route("workshop")]
     public class WorkshopController : ControllerBase
     {
 
@@ -25,41 +25,38 @@ namespace TrueWebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("workshopList")]
         public List<Workshop> Get()
         {
             return workshopsLogic.getAll();
         }
 
         [HttpPost]
-        [Route("workshopList")]
         public void Post([FromBody] string workshop)
         {
             workshopsLogic.addWorkshop(workshop);
         }
 
         [HttpPut]
-        [Route("workshopList")]
         public void Put([FromBody] Workshop workshop)
         {
             workshopsLogic.putWorkshop(workshop);
         }
 
         [HttpDelete]
-        [Route("workshopList/{id}")]
+        [Route("{id}")]
         public void Delete([FromBody] int id)
         {
             workshopsLogic.deleteWorkshop(id);
         }
 
         [HttpPut]
-        [Route("workshopList/{id}/Postpone")]
+        [Route("{id}/postpone")]
         public void Postpone([FromBody] int id)
         {
             workshopsLogic.postponeWorkshop(id);
         }
         [HttpPut]
-        [Route("workshopList/{id}/Cancel")]
+        [Route("{id}/cancel")]
         public void Cancell([FromBody] int id)
         {
             workshopsLogic.cancellWorkshop(id);
