@@ -13,54 +13,56 @@ namespace TrueWebAPI.Controllers
     [Route("workshopList")]
     public class WorkshopController : ControllerBase
     {
-        WorkshopsLogic wl = new WorkshopsLogic();
 
-        private readonly ILogger<WorkshopController> _logger;
+        private readonly IWorkshopsLogic workshopsLogic;
 
-        public WorkshopController(ILogger<WorkshopController> logger)
+        private readonly ILogger<WorkshopController> logger;
+
+        public WorkshopController(ILogger<WorkshopController> logger, IWorkshopsLogic workshopsLogic)
         {
-            _logger = logger;
+            this.logger = logger;
+            this.workshopsLogic = workshopsLogic;
         }
 
         [HttpGet]
         [Route("workshopList")]
         public List<Workshop> Get()
         {
-            return wl.getAll();
+            return workshopsLogic.getAll();
         }
 
         [HttpPost]
         [Route("workshopList")]
         public void Post([FromBody] string workshop)
         {
-            wl.addWorkshop(workshop);
+            workshopsLogic.addWorkshop(workshop);
         }
 
         [HttpPut]
         [Route("workshopList")]
         public void Put([FromBody] Workshop workshop)
         {
-            wl.putWorkshop(workshop);
+            workshopsLogic.putWorkshop(workshop);
         }
 
         [HttpDelete]
         [Route("workshopList/{id}")]
         public void Delete([FromBody] int id)
         {
-            wl.deleteWorkshop(id);
+            workshopsLogic.deleteWorkshop(id);
         }
 
         [HttpPut]
         [Route("workshopList/{id}/Postpone")]
         public void Postpone([FromBody] int id)
         {
-            wl.postponeWorkshop(id);
+            workshopsLogic.postponeWorkshop(id);
         }
         [HttpPut]
         [Route("workshopList/{id}/Cancel")]
         public void Cancell([FromBody] int id)
         {
-            wl.cancellWorkshop(id);
+            workshopsLogic.cancellWorkshop(id);
         }
     }
 }

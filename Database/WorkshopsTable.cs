@@ -3,42 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
+using TrueWebAPI.Database;
 
 namespace TrueWebAPI.Database
 {
-    public class WorkshopsTable
+    public class WorkshopsTable: IWorkshopsTable
     {
-        public List<Workshop> workshopList = new List<Workshop>();
+        private List<Workshop> workshopList { get; set; }
 
         public WorkshopsTable()
         {
-            Workshop work = new Workshop();
-            work.Id = 0;
-            work.Name = "Prueba";
-            work.Status = "Scheduled";
-
-            workshopList.Add(work);
+            workshopList = new List<Workshop>();
         }
 
         public List<Workshop> getAll()
         {
-            Console.WriteLine("Reading");
-            foreach (Workshop wk in workshopList)
-            {
-                Console.WriteLine("id: " + wk.Id + " name: " + wk.Name + " status: " + wk.Status);
-            }
             return workshopList;
         }
 
         public void addWorkshop(Workshop wk)
         {
             workshopList.Add(wk);
-            Console.WriteLine("id: " + wk.Id + " name: " + wk.Name + " status: " + wk.Status);
-            Console.WriteLine("Reading2");
-            foreach (Workshop wk2 in workshopList)
-            {
-                Console.WriteLine("id: " + wk2.Id + " name: " + wk2.Name + " status: " + wk2.Status);
-            }
         }
 
         public void updateWorkshop(Workshop wk)
@@ -48,7 +33,6 @@ namespace TrueWebAPI.Database
             {
                 w.Name = wk.Name;
                 w.Status = wk.Status;
-                Console.WriteLine("id: " + wk.Id + " name: " + wk.Name + " status: " + wk.Status);
             }
         }
 

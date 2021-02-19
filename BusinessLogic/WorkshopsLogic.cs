@@ -6,15 +6,19 @@ using TrueWebAPI.Database;
 
 namespace TrueWebAPI.BusinessLogic
 {
-    public class WorkshopsLogic
+    public class WorkshopsLogic:IWorkshopsLogic
     {
-        WorkshopsTable wt = new WorkshopsTable();
-        int idcount = 1;
-        public List<Workshop> getAll(){
-           
-                return wt.getAll();
-            
 
+        private readonly IWorkshopsTable workshopsTable;
+        int idcount = 1;
+
+        public WorkshopsLogic(IWorkshopsTable workshopsTable)
+        {
+            this.workshopsTable = workshopsTable;
+        }
+
+        public List<Workshop> getAll(){
+                return workshopsTable.getAll();
         }
 
         public void addWorkshop(string name)
@@ -25,24 +29,24 @@ namespace TrueWebAPI.BusinessLogic
                 workshop.Id = idcount;
                 workshop.Name = name;
                 workshop.Status = "Scheduled";
-                wt.addWorkshop(workshop);
+                workshopsTable.addWorkshop(workshop);
                 idcount++;
             }
         }
 
         public void putWorkshop(Workshop workshop)
         {
-            if(workshop.Id != null || workshop.Name != null || workshop.Status != null || workshop.Status == "Scheduled" || workshop.Status == "Postponed" || workshop.Status == "Cancelled")
+            if(workshop.Id.Equals(null) || workshop.Name != null || workshop.Status != null || workshop.Status == "Scheduled" || workshop.Status == "Postponed" || workshop.Status == "Cancelled")
             {
-                wt.updateWorkshop(workshop);
+                workshopsTable.updateWorkshop(workshop);
             }
         }
 
         public void deleteWorkshop(int id)
         {
-            if(id != null)
+            if(id.Equals(null))
             {
-                wt.deleteWorkshop(id);
+                workshopsTable.deleteWorkshop(id);
             }
         }
 
@@ -53,7 +57,7 @@ namespace TrueWebAPI.BusinessLogic
             if (w != null)
             {
                 w.Status = "Postponed";
-                wt.updateWorkshop(w);
+                workshopsTable.updateWorkshop(w);
             }
         }
 
@@ -64,7 +68,7 @@ namespace TrueWebAPI.BusinessLogic
             if (w != null)
             {
                 w.Status = "Cancelled";
-                wt.updateWorkshop(w);
+                workshopsTable.updateWorkshop(w);
             }
         }
     }

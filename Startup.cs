@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TrueWebAPI.Database;
+using TrueWebAPI.BusinessLogic;
 
 namespace TrueWebAPI
 {
@@ -27,6 +29,9 @@ namespace TrueWebAPI
         {
             services.AddControllers();
 
+            services.AddSingleton<IWorkshopsLogic, WorkshopsLogic>();
+            services.AddSingleton<IWorkshopsTable, WorkshopsTable>();
+
             services.AddSwaggerGen();
         }
 
@@ -38,7 +43,7 @@ namespace TrueWebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
