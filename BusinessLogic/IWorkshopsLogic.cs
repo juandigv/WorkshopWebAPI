@@ -12,6 +12,6 @@ namespace TrueWebAPI.BusinessLogic
         void putWorkshop(Workshop workshop);
         void deleteWorkshop(int id);
         void postponeWorkshop(int id);
-        void cancellWorkshop(int id);
+        void cancelWorkshop(int id);
     }
 }

@@ -36,23 +36,21 @@ namespace TrueWebAPI.BusinessLogic
         private int generateId()
         {
             List<Workshop> workshopsList = workshopsTable.getAll();
-
-            
-            if(workshopsList.Count > 0)
+            if (workshopsList.Count > 0)
             {
                 Workshop last = workshopsTable.getAll().Last<Workshop>();
                 return last.Id + 1;
             }
             else
             {
-                return 1; 
+                return 1;
             }
-            
+
         }
 
         public void putWorkshop(Workshop workshop)
         {
-            if (workshop.Id.Equals(null) || workshop.Name != null || workshop.Status != null || workshop.Status == "Scheduled" || workshop.Status == "Postponed" || workshop.Status == "Cancelled")
+            if (!(workshop.Id.Equals(null)) || workshop.Name != null || workshop.Status != null || workshop.Status == "Scheduled" || workshop.Status == "Postponed" || workshop.Status == "Cancelled")
             {
                 workshopsTable.updateWorkshop(workshop);
             }
@@ -60,7 +58,7 @@ namespace TrueWebAPI.BusinessLogic
 
         public void deleteWorkshop(int id)
         {
-            if (id.Equals(null))
+            if (!(id.Equals(null)))
             {
                 workshopsTable.deleteWorkshop(id);
             }
@@ -69,22 +67,22 @@ namespace TrueWebAPI.BusinessLogic
         public void postponeWorkshop(int id)
         {
             List<Workshop> works = getAll();
-            var w = works.FirstOrDefault(o => id == o.Id);
-            if (w != null)
+            var foundWorkshop = works.FirstOrDefault(o => id == o.Id);
+            if (foundWorkshop != null)
             {
-                w.Status = "Postponed";
-                workshopsTable.updateWorkshop(w);
+                foundWorkshop.Status = "Postponed";
+                workshopsTable.updateWorkshop(foundWorkshop);
             }
         }
 
-        public void cancellWorkshop(int id)
+        public void cancelWorkshop(int id)
         {
             List<Workshop> works = getAll();
-            var w = works.FirstOrDefault(o => id == o.Id);
-            if (w != null)
+            var foundWorkshop = works.FirstOrDefault(o => id == o.Id);
+            if (foundWorkshop != null)
             {
-                w.Status = "Cancelled";
-                workshopsTable.updateWorkshop(w);
+                foundWorkshop.Status = "Cancelled";
+                workshopsTable.updateWorkshop(foundWorkshop);
             }
         }
     }

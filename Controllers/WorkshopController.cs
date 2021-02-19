@@ -57,9 +57,9 @@ namespace TrueWebAPI.Controllers
         }
         [HttpPut]
         [Route("{id}/cancel")]
-        public void Cancell(int id)
+        public void Cancel(int id)
         {
-            workshopsLogic.cancellWorkshop(id);
+            workshopsLogic.cancelWorkshop(id);
         }
     }
 }

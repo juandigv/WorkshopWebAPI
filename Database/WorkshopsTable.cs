@@ -21,27 +21,27 @@ namespace TrueWebAPI.Database
             return workshopList;
         }
 
-        public void addWorkshop(Workshop wk)
+        public void addWorkshop(Workshop workshopToAdd)
         {
-            workshopList.Add(wk);
+            workshopList.Add(workshopToAdd);
         }
 
-        public void updateWorkshop(Workshop wk)
+        public void updateWorkshop(Workshop workshopToUpdate)
         {
-            var w = workshopList.FirstOrDefault(o => wk.Id == o.Id);
-            if (w != null)
+            var foundWorkshop = workshopList.FirstOrDefault(o => workshopToUpdate.Id == o.Id);
+            if (foundWorkshop != null)
             {
-                w.Name = wk.Name;
-                w.Status = wk.Status;
+                foundWorkshop.Name = workshopToUpdate.Name;
+                foundWorkshop.Status = workshopToUpdate.Status;
             }
         }
 
         public void deleteWorkshop (int id)
         {
-            var w = workshopList.FirstOrDefault(o => id == o.Id);
-            if (w != null)
+            var foundWorkshop = workshopList.FirstOrDefault(o => id == o.Id);
+            if (foundWorkshop != null)
             {
-                workshopList.Remove(w);
+                workshopList.Remove(foundWorkshop);
             }
         }
     }
